@@ -1,0 +1,5 @@
+# Vector Store Configuration
+vector_store:
+  connection_string: "postgresql://postgres:postgres@localhost:5432/postgres"
+  db_name: "vector_db"
+  table_name: "windows_events"
