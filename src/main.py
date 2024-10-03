@@ -1,7 +1,7 @@
 import logging
 import psycopg2
 from dotenv import load_dotenv
-from llama_index.core import VectorStoreIndex, StorageContext, SimpleDirectoryReader
+from llama_index.core import VectorStoreIndex, StorageContext, SimpleDirectoryReader, SummaryIndex
 from llama_index.core.base.llms.types import ChatMessage
 from llama_index.vector_stores.postgres import PGVectorStore
 from llama_index.core.retrievers import VectorIndexRetriever
@@ -13,6 +13,7 @@ from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.chat_engine import ContextChatEngine
 from llama_index.llms.openai import OpenAI
 from llama_index.core.memory import ChatMemoryBuffer
+from llama_index.core import Settings
 
 load_dotenv()
 
@@ -59,6 +60,7 @@ vector_store = PGVectorStore.from_params(
     },
 )
 llm = OpenAI(model="gpt-4o-mini")
+Settings.llm = llm
 documents = SimpleDirectoryReader("./data").load_data()
 
 storage_context = StorageContext.from_defaults(vector_store=vector_store)
@@ -72,7 +74,7 @@ retriever_query_engine = RetrieverQueryEngine(
     response_synthesizer=synthesizer,
     node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.5)]
 )
-
+z
 memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
 prefix_messages = [ChatMessage.from_str("You are a chatbot. You can answer any question, only based on the provided context.")]
 

@@ -7,6 +7,7 @@ name = "pypi"
 llama-index-vector-stores-postgres = "*"
 llama-index = "*"
 python-dotenv = "*"
+literalai = "*"
 
 [dev-packages]
 
